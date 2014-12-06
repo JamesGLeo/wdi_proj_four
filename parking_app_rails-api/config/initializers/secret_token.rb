@@ -16,4 +16,4 @@
 # Using secret_token for rails3 compatibility. Change to secret_key_base
 # to avoid deprecation warning.
 # Can be safely removed in a rails3 api-only application.
-ParkingApp::Application.config.secret_token = 'a072312c440cc9fd543ce74656e3857b89e45c2ff11d0227dd96e038247f1b15f20e581612121b70cb175d282b22017765bcad81b17333a593ca954b9edda4a8'
+ParkingAppRailsApi::Application.config.secret_token = '68734201562c0469f0b3ffea9b45f603a473d75bbf2ca5a37ddb0fde84b519e6785ab1b5e4f3319cc8ae4fad3e959895e9e64ddaaf674ab867f06cf4f86111d3'
