@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source source="LOCAL" name="Rails parking_app_rails-api: development" uuid="b1fba9e4-e64c-4982-a3f7-12919579f492">
+  <data-source source="LOCAL" name="Rails park_app: development" uuid="5efdb7d7-5a2a-477e-b694-abfdaafa82d4">
     <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
   </data-source>
-  <data-source source="LOCAL" name="Rails parking_app_rails-api: test" uuid="46ef7414-a828-4fda-b415-4c8884b7366b">
+  <data-source source="LOCAL" name="Rails park_app: test" uuid="73606fe2-9d6f-4d3d-aeb1-467984ff6bdf">
     <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
   </data-source>
-  <data-source source="LOCAL" name="Rails parking_app_rails-api: production" uuid="14c163f1-2544-4c91-84dc-4bbaabaad94f">
+  <data-source source="LOCAL" name="Rails park_app: production" uuid="bf3d3b43-cb7a-4f3c-93b3-aa1e72a14b70">
     <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
   </data-source>
 </component>
