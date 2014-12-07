@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sign: MyString
+  borough: MyString
+  mainstreet: MyString
+  startstreet: MyString
+  endstreet: MyString
+  streetside: MyString
+
+two:
+  sign: MyString
+  borough: MyString
+  mainstreet: MyString
+  startstreet: MyString
+  endstreet: MyString
+  streetside: MyString
