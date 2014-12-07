@@ -1,6 +1,28 @@
 namespace :db do
   desc "TODO"
   task seed_signs: :environment do
+    # require 'csv'
+    #
+    # REGULATIONS_TEXT = File.read("../raw_data/signs.csv")
+    # STREETSEGMENTS_TEXT = File.read("../raw_data/locations.csv")
+    #
+    # Regulation.delete_all
+    # Location.delete_all
+    #
+    # regulation_csv = CSV.parse(REGULATIONS_TEXT, headers: true)
+    # regulation_csv.each do |h|
+    #   Regulation.create!(h.to_hash)
+    # end
+    #
+    # location_csv = CSV.parse(STREETSEGMENTS_TEXT, headers: true)
+    # location_csv.each do |h|
+    #   Location.create!(h.to_hash)
+    # end
+
+
+
+    # JSON DIRECT FROM NYC OPEN DATA
+
     REGULATIONS_API_URL = "https://data.cityofnewyork.us/resource/zibd-yb3i.json"
     STREETSEGMENTS_API_URL = "https://data.cityofnewyork.us/resource/9yzr-h7jq.json"
 
@@ -35,3 +57,4 @@ namespace :db do
 
   end
 end
+

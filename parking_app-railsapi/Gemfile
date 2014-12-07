@@ -7,9 +7,13 @@ gem 'rails-api'
 
 gem 'spring', :group => :development
 
+gem 'pry'
 
 gem 'pg'
 
+gem 'httparty'
+
+gem 'rack-cors', :require => 'rack/cors'
 
 
 # To use ActiveModel has_secure_password
