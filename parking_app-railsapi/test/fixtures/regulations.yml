@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sign: MyString
+  borough: MyString
+  regulation_number: MyString
+  description: MyString
+  direction: MyString
+  distance_regulated: 1
+
+two:
+  sign: MyString
+  borough: MyString
+  regulation_number: MyString
+  description: MyString
+  direction: MyString
+  distance_regulated: 1
