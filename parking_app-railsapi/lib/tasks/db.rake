@@ -6,12 +6,11 @@ namespace :db do
     REGULATIONS_TEXT = File.read("../raw_data/signs.csv")
     STREETSEGMENTS_TEXT = File.read("../raw_data/locations.csv")
 
-    Regulation.delete_all
-    Location.delete_all
+    regulations = []
 
     regulation_csv = CSV.parse(REGULATIONS_TEXT, headers: true)
     regulation_csv.each do |row|
-      x = {
+      regulation = {
         :borough => row[0], # the sign's serial number
         :sign => row[1], # borough location of the sign
         :regulation_number => row[2], # order of the specific regulation on the sign
@@ -19,12 +18,14 @@ namespace :db do
         :direction => row[4], # direction of the regulation, denoted by an arrow on the sign
         :distance_regulated => row[5] # distance the specific regulation affects
       }
-      data << x
+      regulations << regulation
     end
+
+    locations = []
 
     location_csv = CSV.parse(STREETSEGMENTS_TEXT, headers: true)
     location_csv.each do |row|
-      x = {
+      location = {
         borough: row[0],  # the sign's serial number
         sign: row[1],  # borough location of the sign
         mainstreet: row[2],  # primary street affected by the sign
@@ -32,12 +33,13 @@ namespace :db do
         endstreet: row[4],  # where the sign's regulation ends
         streetside: row[5]   # side of the street the sign is placed
       }
-      data << x
+      locations << location
     end
 
 
 
     # JSON DIRECT FROM NYC OPEN DATA
+
     #
     # REGULATIONS_API_URL = "https://data.cityofnewyork.us/resource/zibd-yb3i.json"
     # STREETSEGMENTS_API_URL = "https://data.cityofnewyork.us/resource/9yzr-h7jq.json"
