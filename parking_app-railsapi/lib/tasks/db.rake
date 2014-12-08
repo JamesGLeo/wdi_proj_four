@@ -3,9 +3,16 @@ namespace :db do
   task seed_signs: :environment do
     require 'csv'
 
-    REGULATIONS_TEXT = File.read("../raw_data/signs.csv")
-    STREETSEGMENTS_TEXT = File.read("../raw_data/locations.csv")
+    # Open csv files
+    REGULATIONS_TEXT = File.read('db/signs.csv')
+    STREETSEGMENTS_TEXT = File.read('db/locations.csv')
 
+    # Clear existing database
+    Regulation.delete_all
+    Location.delete_all
+
+
+    # Create individual regulations
     regulations = []
 
     regulation_csv = CSV.parse(REGULATIONS_TEXT, headers: true)
@@ -21,6 +28,10 @@ namespace :db do
       regulations << regulation
     end
 
+    Regulation.create(regulations)
+
+
+    # Create individual signs
     locations = []
 
     location_csv = CSV.parse(STREETSEGMENTS_TEXT, headers: true)
@@ -36,6 +47,7 @@ namespace :db do
       locations << location
     end
 
+    Location.create(locations)
 
 
     # JSON DIRECT FROM NYC OPEN DATA
