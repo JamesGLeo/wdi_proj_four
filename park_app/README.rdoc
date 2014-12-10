@@ -1,28 +1,18 @@
-== README
+This will ask SQL for a count of all the sign descriptions, ordered by count
+of appearance in descending order.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+``` sql
+select count(signdescription), signdescription
+from parkingspots
+group by signdescription
+order by count(signdescription) DESC;
+```
 
-Things you may want to cover:
+Time parsing:
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* https://github.com/mojombo/chronic
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+no_parking.grep(/\d.*M\s/)
+
+no_parking.map { |x| x[/\d.*M\s.*(^W|^\()/] }.compact
