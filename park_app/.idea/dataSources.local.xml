@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Rails park_app: development" uuid="5efdb7d7-5a2a-477e-b694-abfdaafa82d4">
+      <secret-storage>memory</secret-storage>
+    </data-source>
+    <data-source name="Rails park_app: test" uuid="73606fe2-9d6f-4d3d-aeb1-467984ff6bdf">
+      <secret-storage>memory</secret-storage>
+    </data-source>
+    <data-source name="Rails park_app: production" uuid="bf3d3b43-cb7a-4f3c-93b3-aa1e72a14b70">
+      <user-name>park_app</user-name>
+      <user-password>df96df8fdf97df8adfefdfe4dffcdff1df8ddffadfebdff8dfe1dff5dfebdffadffadff5dfeedfebdffedfebdfe8dfebdff9dfefdff5dffadfebdff9dff9dffddfe5dff8dfeedf8ddff7df8adf8fdf94</user-password>
+    </data-source>
+  </component>
+</project>
