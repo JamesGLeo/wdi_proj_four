@@ -5,7 +5,7 @@ class ScheduleParserTest < ActiveSupport::TestCase
     @parser = ScheduleParser.new
   end
 
-  def test_cannot_park_before_sunrise
+  def test_cannot_park_before_sunup
     input = "NO PARKING MIDNIGHT-6AM INCLUDING SUNDAY"
     expected = [["12AM", "6AM"]]
     actual = @parser.call(input)
@@ -15,7 +15,7 @@ class ScheduleParserTest < ActiveSupport::TestCase
     # }
   end
 
-  def test_no_parking_saturday_afternoon
+  def test_no_parking_sat_noon
     input = "NO PARKING 1PM-MIDNIGHT (SINGLE ARROW)"
     expected = [["1PM", "12AM"]]
     actual = @parser.call(input)
@@ -43,5 +43,11 @@ class ScheduleParserTest < ActiveSupport::TestCase
     assert_equal expected, actual
   end
 
+  def test_using_to_as_seperator
+    input = "NO PARKING (SANITATION BROOM SYMBOL) 11AM TO 12:30PM MON & THURS"
+    expected = [["11AM", "12:30PM"]]
+    actual = @parser.call(input)
+    assert_equal expected, actual
+  end
 
 end
