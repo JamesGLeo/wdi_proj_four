@@ -2,6 +2,9 @@ class ScheduleParser
   TIME_FRAGMENT = /((?:\d{1,2}(?::30)?(?:AM|PM)?|MIDNIGHT|NOON))/
   TIME_SEPARATOR = /\s?(?:-|TO)\s?/
   TIMES_EXP = /#{TIME_FRAGMENT}#{TIME_SEPARATOR}#{TIME_FRAGMENT}/
+  DAYS_EXP_F1 =  /(EXCEPT)+|(MONDAY|\bMON\b)+|(TUESDAY|\bTUE\b)+|(WEDNESDAY|\bWED\b)/
+  DAYS_EXP_F2 = /+|(THURSDAY|\bTHURS\b)+|(FRIDAY|\bFRI\b)+|(SATURDAY|\bSAT\b)+|(SUNDAY|\bSUN\b)+|(THRU))/
+  DAYS_EXP = /#{DAYS_EXP_F1}#{DAYS_EXP_F2}/
 
   def call(string_to_parse)
     times = extract_times(string_to_parse)
@@ -11,10 +14,15 @@ class ScheduleParser
 
   end
 
+
   def extract_times(string_to_parse)
     times = string_to_parse.scan TIMES_EXP
     times.map! { |time| change_words_into_times(time) }
     times.map! { |time| format_times(time) }
+  end
+
+  def extract_dates(string_to_parse)
+    dates = string_to_parse.scan DATES_EXP
   end
 
   def change_words_into_times(times)
