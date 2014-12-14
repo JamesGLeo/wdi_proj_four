@@ -21,14 +21,17 @@ class ScheduleParser
     # MAYBE IN THE FUTURE:
     # dates = extract_dates(string_to_parse)
     # all_exceptions = combine(dates, times)
-
   end
 
 
   def extract_times(string_to_parse)
     times = string_to_parse.scan TIMES_EXP
-    times.map! { |time| change_words_into_times(time) }
-    times.map! { |time| format_times(time) }
+    if times.empty?
+      times = ["12AM", "11:59PM"]
+    else
+      times.map! { |time| change_words_into_times(time) }
+      times.map! { |time| format_times(time) }
+    end
   end
 
   def extract_dates(string_to_parse)
@@ -38,46 +41,16 @@ class ScheduleParser
     dates.map {|d| d.strip }
   end
 
-  # def combine(dates, times)
-  #   case dates[0]
-  #     when "INCLUDING"
-  #       parsed_hash = HASH.map do
-  #         |k, v|
-  #         HASH[k] = times
-  #       end
-  #       return parsed_hash
-  #     else
-  #   end
-  # end
-
   def combine(dates, times)
-    case dates[0]
-      when "INCLUDING"
-        parsed_hash = HASH.map {|k,v| HASH[k] = times}
-        return parsed_hash
+   if dates.include?("INCLUDING")
+     HASH.update(HASH){|k,v| v=times}
+     return HASH
+   elsif dates.include?("EXCEPT")
+     HASH.update(HASH){|k,v|}
       else
     end
   end
 
-
-
-  # def combine(dates, times)
-  #   case dates[0]
-  #     when "INCLUDING"
-  #       x = {
-  #         :SUNDAY => times ,
-  #         :MONDAY => times ,
-  #         :TUESDAY => times ,
-  #         :WEDNESDAY => times ,
-  #         :THURSDAY => times ,
-  #         :FRIDAY => times ,
-  #         :SATURDAY => times
-  #       }
-  #       return x
-  #     else
-  #       puts "MOFO"
-  #   end
-  # end
 
   def change_words_into_times(times)
     times.map do |time|
