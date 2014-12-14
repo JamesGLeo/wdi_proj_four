@@ -4,13 +4,13 @@ class ScheduleParser
   TIMES_EXP = /#{TIME_FRAGMENT}#{TIME_SEPARATOR}#{TIME_FRAGMENT}/
   DAYS_EXP = /((?:EXCEPT\s)|(?:INCLUDING\s))?((?:MONDAY|\bMON\b)|(?:TUESDAY|\bTUE\b)|(?:WEDNESDAY|\bWED\b)|(?:THURSDAY|\bTHURS\b)|(?:FRIDAY|\bFRI\b)|(?:SATURDAY|\bSAT\b)|(?:SUNDAY|\bSUN\b)|(?:THRU))\s?((?:MONDAY|\bMON\b)|(?:TUESDAY|\bTUE\b)|(?:WEDNESDAY|\bWED\b)|(?:THURSDAY|\bTHURS\b)|(?:FRIDAY|\bFRI\b)|(?:SATURDAY|\bSAT\b)|(?:SUNDAY|\bSUN\b)|(?:THRU))?\s?((?:MONDAY|\bMON\b)|(?:TUESDAY|\bTUE\b)|(?:WEDNESDAY|\bWED\b)|(?:THURSDAY|\bTHURS\b)|(?:FRIDAY|\bFRI\b)|(?:SATURDAY|\bSAT\b)|(?:SUNDAY|\bSUN\b)|(?:THRU))?/
   HASH = {
-    :SUNDAY => nil ,
-    :MONDAY => nil ,
-    :TUESDAY => nil ,
-    :WEDNESDAY => nil ,
-    :THURSDAY => nil ,
-    :FRIDAY => nil ,
-    :SATURDAY => nil
+    SUNDAY: nil,
+    MONDAY: nil,
+    TUESDAY: nil,
+    WEDNESDAY: nil,
+    THURSDAY: nil,
+    FRIDAY: nil,
+    SATURDAY: nil
   }
 
 
@@ -38,18 +38,28 @@ class ScheduleParser
     dates.map {|d| d.strip }
   end
 
+  # def combine(dates, times)
+  #   case dates[0]
+  #     when "INCLUDING"
+  #       parsed_hash = HASH.map do
+  #         |k, v|
+  #         HASH[k] = times
+  #       end
+  #       return parsed_hash
+  #     else
+  #   end
+  # end
+
   def combine(dates, times)
     case dates[0]
       when "INCLUDING"
-        parsed_hash = HASH.map do
-          |k, v|
-          k
-          v = times
-        end
+        parsed_hash = HASH.map {|k,v| HASH[k] = times}
         return parsed_hash
       else
     end
   end
+
+
 
   # def combine(dates, times)
   #   case dates[0]
