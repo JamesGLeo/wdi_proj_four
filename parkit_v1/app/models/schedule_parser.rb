@@ -27,7 +27,7 @@ class ScheduleParser
   def extract_times(string_to_parse)
     times = string_to_parse.scan TIMES_EXP
     if times.empty?
-      times = ["12AM", "11:59PM"]
+      times = [["12AM", "11:59PM"]]
     else
       times.map! { |time| change_words_into_times(time) }
       times.map! { |time| format_times(time) }
@@ -38,19 +38,18 @@ class ScheduleParser
     dates = string_to_parse.scan DAYS_EXP
     dates.reject! { |d| d.empty? }
     dates.flatten!.compact!
-    dates.map {|d| d.strip }
+    dates.map! {|d| d.strip }
+    dates.map! {|d| change_abv_days_to_days(d) }
   end
 
   def combine(dates, times)
    if dates.include?("INCLUDING")
      HASH.update(HASH){|k,v| v=times}
-     return HASH
    elsif dates.include?("EXCEPT")
-     HASH.update(HASH){|k,v|}
+     HASH.update(HASH){ |k,v| dates.include?(k.to_s) ? v : v=times }
    elsif dates.include?("ANYTIME")
-     HASH.update.(HASH){|k,v| v=times}
-
-    end
+     HASH.update(HASH){|k,v| v=times}
+   end
   end
 
 
@@ -62,6 +61,19 @@ class ScheduleParser
         else time
       end
     end
+  end
+
+  def change_abv_days_to_days(date)
+      case date
+        when "SUN" then "SUNDAY"
+        when "MON" then "MONDAY"
+        when "TUE" then "TUESDAY"
+        when "WED" then "WEDNESDAY"
+        when "THURS" then "THURSDAY"
+        when "FRI" then "FRIDAY"
+        when "SAT" then "SATURDAY"
+        else date
+      end
   end
 
   def format_times(times)
