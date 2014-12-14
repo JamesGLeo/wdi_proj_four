@@ -2,12 +2,22 @@ class ScheduleParser
   TIME_FRAGMENT = /((?:\d{1,2}(?::30)?(?:AM|PM)?|MIDNIGHT|NOON))/
   TIME_SEPARATOR = /\s?(?:-|TO)\s?/
   TIMES_EXP = /#{TIME_FRAGMENT}#{TIME_SEPARATOR}#{TIME_FRAGMENT}/
-  DAYS_EXP_F1 =  /(EXCEPT)+|(MONDAY|\bMON\b)+|(TUESDAY|\bTUE\b)+|(WEDNESDAY|\bWED\b)/
-  DAYS_EXP_F2 = /+|(THURSDAY|\bTHURS\b)+|(FRIDAY|\bFRI\b)+|(SATURDAY|\bSAT\b)+|(SUNDAY|\bSUN\b)+|(THRU))/
-  DAYS_EXP = /#{DAYS_EXP_F1}#{DAYS_EXP_F2}/
+  DAYS_EXP = /((?:EXCEPT\s)|(?:INCLUDING\s))?((?:MONDAY|\bMON\b)|(?:TUESDAY|\bTUE\b)|(?:WEDNESDAY|\bWED\b)|(?:THURSDAY|\bTHURS\b)|(?:FRIDAY|\bFRI\b)|(?:SATURDAY|\bSAT\b)|(?:SUNDAY|\bSUN\b)|(?:THRU))\s?((?:MONDAY|\bMON\b)|(?:TUESDAY|\bTUE\b)|(?:WEDNESDAY|\bWED\b)|(?:THURSDAY|\bTHURS\b)|(?:FRIDAY|\bFRI\b)|(?:SATURDAY|\bSAT\b)|(?:SUNDAY|\bSUN\b)|(?:THRU))?\s?((?:MONDAY|\bMON\b)|(?:TUESDAY|\bTUE\b)|(?:WEDNESDAY|\bWED\b)|(?:THURSDAY|\bTHURS\b)|(?:FRIDAY|\bFRI\b)|(?:SATURDAY|\bSAT\b)|(?:SUNDAY|\bSUN\b)|(?:THRU))?/
+  HASH = {
+    :SUNDAY => nil ,
+    :MONDAY => nil ,
+    :TUESDAY => nil ,
+    :WEDNESDAY => nil ,
+    :THURSDAY => nil ,
+    :FRIDAY => nil ,
+    :SATURDAY => nil
+  }
+
 
   def call(string_to_parse)
     times = extract_times(string_to_parse)
+    dates = extract_dates(string_to_parse)
+    result = combine(dates, times)
     # MAYBE IN THE FUTURE:
     # dates = extract_dates(string_to_parse)
     # all_exceptions = combine(dates, times)
@@ -22,8 +32,42 @@ class ScheduleParser
   end
 
   def extract_dates(string_to_parse)
-    dates = string_to_parse.scan DATES_EXP
+    dates = string_to_parse.scan DAYS_EXP
+    dates.reject! { |d| d.empty? }
+    dates.flatten!.compact!
+    dates.map {|d| d.strip }
   end
+
+  def combine(dates, times)
+    case dates[0]
+      when "INCLUDING"
+        parsed_hash = HASH.map do
+          |k, v|
+          k
+          v = times
+        end
+        return parsed_hash
+      else
+    end
+  end
+
+  # def combine(dates, times)
+  #   case dates[0]
+  #     when "INCLUDING"
+  #       x = {
+  #         :SUNDAY => times ,
+  #         :MONDAY => times ,
+  #         :TUESDAY => times ,
+  #         :WEDNESDAY => times ,
+  #         :THURSDAY => times ,
+  #         :FRIDAY => times ,
+  #         :SATURDAY => times
+  #       }
+  #       return x
+  #     else
+  #       puts "MOFO"
+  #   end
+  # end
 
   def change_words_into_times(times)
     times.map do |time|

@@ -17,21 +17,18 @@ class ScheduleParserTest < ActiveSupport::TestCase
 
   def test_td_cannot_park_bf_sunup
     input = "NO PARKING MIDNIGHT-6AM INCLUDING SUNDAY"
-    expected = [["12AM", "6AM"]]
+    expected = {
+      :SUNDAY =>  [["12AM", "6AM"]],
+      :MONDAY =>  [["12AM", "6AM"]],
+      :TUESDAY => [["12AM", "6AM"]] ,
+      :WEDNESDAY =>  [["12AM", "6AM"]],
+      :THURSDAY => [["12AM", "6AM"]],
+      :FRIDAY => [["12AM", "6AM"]],
+      :SATURDAY => [["12AM", "6AM"]]
+    }
     actual = @parser.call(input)
     assert_equal expected, actual
-    # output = {
-    #   'monday' => [['12AM', '6AM']],
-    # }
-    expected = {
-      'mon' => [['12AM', '6AM']],
-      'tue' => [['12AM', '6AM']],
-      'wed' => [['12AM', '6AM']],
-      'thurs' => [['12AM', '6AM']],
-      'fri' => [['12AM', '6AM']],
-      'sat' => [['12AM', '6AM']],
-      'sun' => [['12AM', '6AM']]
-    }
+
   end
 
   def test_no_parking_sat_noon
