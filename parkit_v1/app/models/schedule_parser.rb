@@ -3,6 +3,7 @@ class ScheduleParser
   TIME_SEPARATOR = /\s?(?:-|TO)\s?/
   TIMES_EXP = /#{TIME_FRAGMENT}#{TIME_SEPARATOR}#{TIME_FRAGMENT}/
   DAYS_EXP = /(ANYTIME)|((?:EXCEPT\s)|(?:INCLUDING\s))?((?:MONDAY|\bMON\b)|(?:TUESDAY|\bTUE\b)|(?:WEDNESDAY|\bWED\b)|(?:THURSDAY|\bTHURS\b)|(?:FRIDAY|\bFRI\b)|(?:SATURDAY|\bSAT\b)|(?:SUNDAY|\bSUN\b)|(?:THRU))\s?((?:MONDAY|\bMON\b)|(?:TUESDAY|\bTUE\b)|(?:WEDNESDAY|\bWED\b)|(?:THURSDAY|\bTHURS\b)|(?:FRIDAY|\bFRI\b)|(?:SATURDAY|\bSAT\b)|(?:SUNDAY|\bSUN\b)|(?:THRU))?\s?((?:MONDAY|\bMON\b)|(?:TUESDAY|\bTUE\b)|(?:WEDNESDAY|\bWED\b)|(?:THURSDAY|\bTHURS\b)|(?:FRIDAY|\bFRI\b)|(?:SATURDAY|\bSAT\b)|(?:SUNDAY|\bSUN\b)|(?:THRU))?/
+  DAYS_OF_WEEK=["SUNDAY" , "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
   HASH = {
     SUNDAY: nil,
     MONDAY: nil,
@@ -49,6 +50,13 @@ class ScheduleParser
      HASH.update(HASH){ |k,v| dates.include?(k.to_s) ? v=nil : v=times }
    elsif dates.include?("ANYTIME")
      HASH.update(HASH){|k,v| v=times}
+   elsif dates.include?("THRU")
+     begin_day_index = DAYS_OF_WEEK.index(dates[0])
+     end_day_index = DAYS_OF_WEEK.index(dates[-1])
+     range = (begin_day_index..end_day_index).to_a
+     modified_dates = []
+     range.each {|number| modified_dates << DAYS_OF_WEEK[number]}
+     HASH.update(HASH){|k,v| modified_dates.include?(k.to_s) ? v=times : v=nil }
    else
      HASH.update(HASH){|k,v| dates.include?(k.to_s) ? v=times : v=nil }
    end
