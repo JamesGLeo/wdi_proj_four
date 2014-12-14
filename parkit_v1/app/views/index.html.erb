@@ -1,0 +1,47 @@
+<!-- Leaflet Plugins: Omnivore for geoJSON parsing-->
+<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
+
+<!-- Leaflet Plugins: Zoomslider for zoom bar-->
+<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-zoomslider/v0.7.0/L.Control.Zoomslider.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-zoomslider/v0.7.0/L.Control.Zoomslider.css' rel='stylesheet' />
+
+<!-- Leaflet Plugins: minimap for overwatch views-->
+<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.css' rel='stylesheet' />
+
+<!--Main Map-->
+<div id='map'></div>
+
+<script type="text/javascript">
+    L.mapbox.accessToken = 'pk.eyJ1IjoiamFtZXNsaXVtYXBzIiwiYSI6InhLTDh6eUEifQ.mpBGKMabJ51bqz0kktgoEA';
+
+    var map = L.mapbox.map('map', 'jamesliumaps.kfd24anj', {
+        zoomControl: false
+    })
+            .setView([-73.92,40.76], 17)
+            .on('ready', function() {
+                new L.Control.MiniMap(L.mapbox.tileLayer('jamesliumaps.7719d94c'))
+                    .addTo(map);
+    });
+
+    L.control.zoomslider().addTo(map);
+
+    var runLayer = omnivore.kml('/mapbox.js/assets/data/line.kml')
+            .on('ready', function() {
+                map.fitBounds(runLayer.getBounds());
+
+                // After the 'ready' event fires, the GeoJSON contents are accessible
+                // and you can iterate through layers to bind custom popups.
+                runLayer.eachLayer(function(layer) {
+                    // See the `.bindPopup` documentation for full details. This
+                    // dataset has a property called `name`: your dataset might not,
+                    // so inspect it and customize to taste.
+                    layer.bindPopup(layer.feature.properties.name);
+                });
+            })
+            .addTo(map);
+
+
+</script>
+
+
