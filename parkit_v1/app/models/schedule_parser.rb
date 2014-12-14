@@ -46,9 +46,11 @@ class ScheduleParser
    if dates.include?("INCLUDING")
      HASH.update(HASH){|k,v| v=times}
    elsif dates.include?("EXCEPT")
-     HASH.update(HASH){ |k,v| dates.include?(k.to_s) ? v : v=times }
+     HASH.update(HASH){ |k,v| dates.include?(k.to_s) ? v=nil : v=times }
    elsif dates.include?("ANYTIME")
      HASH.update(HASH){|k,v| v=times}
+   else
+     HASH.update(HASH){|k,v| dates.include?(k.to_s) ? v=times : v=nil }
    end
   end
 

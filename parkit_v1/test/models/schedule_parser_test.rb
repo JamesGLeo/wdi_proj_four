@@ -142,12 +142,17 @@ class ScheduleParserTest < ActiveSupport::TestCase
   end
 
   def test_td_no_parking_on_saturday
-  input = "NO PARKING 1PM-MIDNIGHT SATURDAY (SINGLE ARROW)"
+    input = "NO PARKING 1PM-MIDNIGHT SATURDAY (SINGLE ARROW)"
+    expected = {
+      SUNDAY: nil,
+      MONDAY: nil,
+      TUESDAY: nil,
+      WEDNESDAY: nil,
+      THURSDAY: nil,
+      FRIDAY: nil,
+      SATURDAY: [["1PM", "12AM"]]
+    }
+    actual = @parser.call(input)
+    assert_equal expected, actual
   end
-  
-
-
-
-
-
 end
