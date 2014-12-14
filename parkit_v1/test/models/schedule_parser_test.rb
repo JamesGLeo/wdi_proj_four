@@ -69,13 +69,25 @@ class ScheduleParserTest < ActiveSupport::TestCase
   end
 
   def test_dates_no_parking_anytime
-    input = "NO PARKING ANYTIME MAY 15 - SEPT 30"
-    expected = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"]
-    actual = @parser.call(input)
+    input = "NO PARKING ANYTIME"
+    expected = ["ANYTIME"]
+    actual = @parser.extract_dates(input)
     assert_equal expected,actual
   end
 
 
+  def test_td_cannot_park_anytime
+    input = "NO PARKING ANYTIME"
+    expected = {
+      :SUNDAY =>  [["12AM", "11:59PM"]],
+      :MONDAY =>  [["12AM", "11:59PM"]],
+      :TUESDAY => [["12AM", "11:59PM"]] ,
+      :WEDNESDAY =>  [["12AM", "11:59PM"]],
+      :THURSDAY => [["12AM", "11:59PM"]],
+      :FRIDAY => [["12AM", "11:59M"]],
+      :SATURDAY => [["12AM", "11:59M"]]
+    }
+  end
 
   def test_td_cannot_park_bf_sunup
     input = "NO PARKING MIDNIGHT-6AM INCLUDING SUNDAY"

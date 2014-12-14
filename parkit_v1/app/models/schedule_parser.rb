@@ -2,7 +2,7 @@ class ScheduleParser
   TIME_FRAGMENT = /((?:\d{1,2}(?::30)?(?:AM|PM)?|MIDNIGHT|NOON))/
   TIME_SEPARATOR = /\s?(?:-|TO)\s?/
   TIMES_EXP = /#{TIME_FRAGMENT}#{TIME_SEPARATOR}#{TIME_FRAGMENT}/
-  DAYS_EXP = /((?:EXCEPT\s)|(?:INCLUDING\s))?((?:MONDAY|\bMON\b)|(?:TUESDAY|\bTUE\b)|(?:WEDNESDAY|\bWED\b)|(?:THURSDAY|\bTHURS\b)|(?:FRIDAY|\bFRI\b)|(?:SATURDAY|\bSAT\b)|(?:SUNDAY|\bSUN\b)|(?:THRU))\s?((?:MONDAY|\bMON\b)|(?:TUESDAY|\bTUE\b)|(?:WEDNESDAY|\bWED\b)|(?:THURSDAY|\bTHURS\b)|(?:FRIDAY|\bFRI\b)|(?:SATURDAY|\bSAT\b)|(?:SUNDAY|\bSUN\b)|(?:THRU))?\s?((?:MONDAY|\bMON\b)|(?:TUESDAY|\bTUE\b)|(?:WEDNESDAY|\bWED\b)|(?:THURSDAY|\bTHURS\b)|(?:FRIDAY|\bFRI\b)|(?:SATURDAY|\bSAT\b)|(?:SUNDAY|\bSUN\b)|(?:THRU))?/
+  DAYS_EXP = /(ANYTIME)|((?:EXCEPT\s)|(?:INCLUDING\s))?((?:MONDAY|\bMON\b)|(?:TUESDAY|\bTUE\b)|(?:WEDNESDAY|\bWED\b)|(?:THURSDAY|\bTHURS\b)|(?:FRIDAY|\bFRI\b)|(?:SATURDAY|\bSAT\b)|(?:SUNDAY|\bSUN\b)|(?:THRU))\s?((?:MONDAY|\bMON\b)|(?:TUESDAY|\bTUE\b)|(?:WEDNESDAY|\bWED\b)|(?:THURSDAY|\bTHURS\b)|(?:FRIDAY|\bFRI\b)|(?:SATURDAY|\bSAT\b)|(?:SUNDAY|\bSUN\b)|(?:THRU))?\s?((?:MONDAY|\bMON\b)|(?:TUESDAY|\bTUE\b)|(?:WEDNESDAY|\bWED\b)|(?:THURSDAY|\bTHURS\b)|(?:FRIDAY|\bFRI\b)|(?:SATURDAY|\bSAT\b)|(?:SUNDAY|\bSUN\b)|(?:THRU))?/
   HASH = {
     SUNDAY: nil,
     MONDAY: nil,
@@ -47,7 +47,9 @@ class ScheduleParser
      return HASH
    elsif dates.include?("EXCEPT")
      HASH.update(HASH){|k,v|}
-      else
+   elsif dates.include?("ANYTIME")
+     HASH.update.(HASH){|k,v| v=times}
+
     end
   end
 
