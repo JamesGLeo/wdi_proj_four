@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8 />
+    <title>Leaflet-MiniMap</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+
+<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.css' rel='stylesheet' />
+
+<div id='map'></div>
+
+<script>
+    L.mapbox.accessToken = 'pk.eyJ1IjoiamFtZXNsaXVtYXBzIiwiYSI6InhLTDh6eUEifQ.mpBGKMabJ51bqz0kktgoEA';
+    var map = L.mapbox.map('map', 'examples.map-i875kd35')
+            .on('ready', function() {
+                new L.Control.MiniMap(L.mapbox.tileLayer('examples.map-i86nkdio'))
+                        .addTo(map);
+            });
+</script>
+
+
+</body>
+</html>

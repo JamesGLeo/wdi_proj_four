@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="RUBY_MODULE" version="4">
-  <component name="CompassSettings">
-    <option name="compassSupportEnabled" value="true" />
-  </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
@@ -28,6 +25,7 @@
     <orderEntry type="library" scope="PROVIDED" name="rack-test (v0.6.2, ruby-2.0.0-p451) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rails (v4.1.6, ruby-2.0.0-p451) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="railties (v4.1.6, ruby-2.0.0-p451) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rake (v0.9.6, ruby-2.0.0-p451) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sprockets (v2.12.2, ruby-2.0.0-p451) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sprockets-rails (v2.2.0, ruby-2.0.0-p451) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thor (v0.19.1, ruby-2.0.0-p451) [gem]" level="application" />
@@ -36,4 +34,3 @@
     <orderEntry type="library" scope="PROVIDED" name="tzinfo (v1.2.2, ruby-2.0.0-p451) [gem]" level="application" />
   </component>
 </module>
-
