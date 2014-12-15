@@ -29,62 +29,11 @@
     </div>
   </script>
 
-  <style>
-    body {
-      margin:0;
-      padding:0;
-    }
-
-    #map {
-      position:absolute;
-      top:0;
-      bottom:0;
-      width:100%;
-    }
-
-    .leaflet-control-zoomslider-knob {
-      width:14px;
-      height:6px;
-    }
-
-    .leaflet-container .leaflet-control-zoomslider-body {
-      -webkit-box-sizing:content-box;
-      -moz-box-sizing:content-box;
-      box-sizing:content-box;
-    }
-  </style>
 </head>
 
 <body>
-  <!-- Leaflet Plugins: Omnivore for geoJSON parsing-->
-  <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
 
-  <!-- Leaflet Plugins: Zoomslider for zoom bar-->
-  <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-zoomslider/v0.7.0/L.Control.Zoomslider.js'></script>
-  <link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-zoomslider/v0.7.0/L.Control.Zoomslider.css' rel='stylesheet' />
-
-  <!-- Leaflet Plugins: minimap for overwatch views-->
-  <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.js'></script>
-  <link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.css' rel='stylesheet' />
-
-  <div id='map'></div>
-  <ul id="map"></ul>
-
-  <script>
-
-     // Map created with Mapbox
-    L.mapbox.accessToken = 'pk.eyJ1IjoiamFtZXNsaXVtYXBzIiwiYSI6InhLTDh6eUEifQ.mpBGKMabJ51bqz0kktgoEA';
-    var map = L.mapbox.map('map', 'jamesliumaps.kfii0fpm', { zoomControl: false })
-            .on('ready', function() {
-              // Minimap
-              new L.Control.MiniMap(L.mapbox.tileLayer('jamesliumaps.kfii0fpm'))
-                      .addTo(map);
-              // Zoomslider
-              new L.control.zoomslider()
-                      .addTo(map);
-            });
-
-  </script>
+  <ul id="signs"></ul>
 
 </body>
 </html>
