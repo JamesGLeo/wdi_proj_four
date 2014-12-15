@@ -2,7 +2,6 @@ parkingMap = function(map, jsonData) {
 
     var pointTypes = d3.map(),
         points = [],
-        lastSelectedPoint;
 
     var drawWithLoading = function(e){
         d3.select('#loading').classed('visible', true);
