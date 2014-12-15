@@ -17,47 +17,96 @@
 
   <!--App-->
   <script src='/javascripts/app.js'></script>
-
-  <!--Sign Template-->
-  <script type="text/template" id="sign-template">
-    <p><%= market.name %></p>
-    <div class="details" style="display:none">
-      <p><%= sign.borough %></p>
-      <p><%= sign.mainstreet %></p>
-    </div>
-  </script>
 </head>
 
 <body>
 <!-- Leaflet Plugins: Omnivore for geoJSON parsing-->
 <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
 
-<!-- Leaflet Plugins: Zoomslider for zoom bar-->
-<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-zoomslider/v0.7.0/L.Control.Zoomslider.js'></script>
-<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-zoomslider/v0.7.0/L.Control.Zoomslider.css' rel='stylesheet' />
-
 <!-- Leaflet Plugins: minimap for overwatch views-->
 <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.js'></script>
 <link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.css' rel='stylesheet' />
 
-<div id='map'></div>
-<ul id="map"></ul>
+
+<div id='map'>
+</div>
+
+<div id='loading'>
+</div>
+
 
 <script>
 
   // Map created with Mapbox
   L.mapbox.accessToken = 'pk.eyJ1IjoiamFtZXNsaXVtYXBzIiwiYSI6InhLTDh6eUEifQ.mpBGKMabJ51bqz0kktgoEA';
-  var map = L.mapbox.map('map', 'jamesliumaps.kfii0fpm', { zoomControl: false })
+  var map = L.mapbox.map('map', 'jamesliumaps.kfii0fpm')
           .on('ready', function() {
             // Minimap
             new L.Control.MiniMap(L.mapbox.tileLayer('jamesliumaps.kfii0fpm'))
                     .addTo(map);
-            // Zoomslider
-            new L.control.zoomslider()
-                    .addTo(map);
           });
+
+  jsonData = // Whatever we're passing in
+  parkingMap(map, jsonData);
+
+
+
+//  var svg = d3.select(map.getPanes()
+//              .overlayPane)
+//              .append("svg"),
+//      g =  svg.append("g")
+//              .attr("class", "leaflet-zoom-hide");
+//
+//  jsonData = //whatever we're passing in
+//  d3.json(jsonData, function(collection) {
+//    var transform = d3.geo
+//                      .transform({point: projectPoint}),
+//             path = d3.geo
+//                      .path()
+//                      .projection(transform);
+//
+//    var feature = g.selectAll("path")
+//                   .data(collection.features)
+//                   .enter()
+//                   .append("path");
+//
+//    map.on("viewreset", reset);
+//
+//    reset();
+//
+//// Reposition the SVG to cover the features.
+//    function reset() {
+//      var bounds = path.bounds(collection),
+//          topLeft = bounds[0],
+//          bottomRight = bounds[1];
+//
+//      svg .attr("width", bottomRight[0] - topLeft[0])
+//          .attr("height", bottomRight[1] - topLeft[1])
+//          .style("left", topLeft[0] + "px")
+//          .style("top", topLeft[1] + "px");
+//
+//        g .attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")");
+//
+//      feature.attr("d", path);
+//    }
+//
+//// Use Leaflet to implement a D3 geometric transformation.
+//    function projectPoint(x, y) {
+//      var point = map.latLngToLayerPoint(new L.LatLng(y, x));
+//      this.stream.point(point.x, point.y);
+//    }
+//  });
 
 </script>
 
 </body>
 </html>
+
+// http://chriszetter.com/blog/2014/06/15/building-a-voronoi-map-with-d3-and-leaflet/#fn:pad
+// https://github.com/zetter/voronoi-maps/blob/master/lib/voronoi_map.js
+// https://github.com/zetter/voronoi-maps/blob/master/examples/uk-supermarkets/index.html
+
+// http://bost.ocks.org/mike/leaflet/
+// https://github.com/mbostock/bost.ocks.org/blob/gh-pages/mike/leaflet/index.html#L131-171
+
+// http://stackoverflow.com/questions/18732047/mapbox-points-on-a-rails-app
