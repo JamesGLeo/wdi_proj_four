@@ -12,10 +12,8 @@
   <!-- Stylesheet -->
   <link rel="stylesheet" href="/stylesheets/styles.css">
 
-  <!-- Libraries:  Jquery, Underscore, Backbone, App -->
+  <!-- Libraries:  Jquery -->
   <script src='/javascripts/lib/jquery.js'></script>
-  <script src='/javascripts/lib/underscore.js'></script>
-  <script src='/javascripts/lib/backbone.js'></script>
 
   <!--App-->
   <script src='/javascripts/app.js'></script>
@@ -28,31 +26,6 @@
       <p><%= sign.mainstreet %></p>
     </div>
   </script>
-
-  <style>
-    body {
-      margin:0;
-      padding:0;
-    }
-
-    #map {
-      position:absolute;
-      top:0;
-      bottom:0;
-      width:100%;
-    }
-
-    .leaflet-control-zoomslider-knob {
-      width:14px;
-      height:6px;
-    }
-
-    .leaflet-container .leaflet-control-zoomslider-body {
-      -webkit-box-sizing:content-box;
-      -moz-box-sizing:content-box;
-      box-sizing:content-box;
-    }
-  </style>
 </head>
 
 <body>
@@ -72,7 +45,7 @@
 
 <script>
 
-   // Map created with Mapbox
+  // Map created with Mapbox
   L.mapbox.accessToken = 'pk.eyJ1IjoiamFtZXNsaXVtYXBzIiwiYSI6InhLTDh6eUEifQ.mpBGKMabJ51bqz0kktgoEA';
   var map = L.mapbox.map('map', 'jamesliumaps.kfii0fpm', { zoomControl: false })
           .on('ready', function() {
@@ -86,45 +59,5 @@
 
 </script>
 
-
-</body>
-
-</html>
-
-
-
-
-
-
-
-
-
-
-<body>
-  <div id="filters">
-    <select id="day">
-      <option value="">Day</option>
-      <option>sunday</option>
-      <option>monday</option>
-      <option>tuesday</option>
-      <option>wednesday</option>
-      <option>thursday</option>
-      <option>friday</option>
-      <option>saturday</option>
-    </select>
-    <select id="borough">
-      <option value="">Borough</option>
-      <option>manhattan</option>
-      <option>brooklyn</option>
-      <option>queens</option>
-      <option>bronx</option>
-      <option>staten island</option>
-    </select>
-  </div>
-  <ul id="markets"></ul>
-  <script src="/js/jquery.js"></script>
-  <script src="/js/underscore.js"></script>
-  <script src="/js/backbone.js"></script>
-  <script src="/js/app.js"></script>
 </body>
 </html>
