@@ -11,9 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20141215170932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "parkingspots", force: true do |t|
+    t.string   "boroughcode"
+    t.string   "statusordernumber"
+    t.integer  "signsequence"
+    t.integer  "distance"
+    t.string   "arrowpoints"
+    t.string   "signdescription"
+    t.string   "SUNDAY",            default: [], array: true
+    t.string   "MONDAY",            default: [], array: true
+    t.string   "TUESDAY",           default: [], array: true
+    t.string   "WEDNESDAY",         default: [], array: true
+    t.string   "THURSDAY",          default: [], array: true
+    t.string   "FRIDAY",            default: [], array: true
+    t.string   "SATURDAY",          default: [], array: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

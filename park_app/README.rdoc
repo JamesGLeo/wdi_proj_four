@@ -31,12 +31,12 @@ no_parking.map { |x| x[/\d.*M\s.*(^W|^\()/] }.compact
 x.map do
 |x|
 y = x[/(1[0-2]|[1-9]|MIDNIGHT|NOON)(:30)?(AM|PM|)(-| TO | - )(1[0-2]|[1-9]|MIDNIGHT|NOON)(:30)?(AM|PM|)/]
-binding.pry
-if y.include?('AM') || y.include?('PM')
-y.split('-')
+
+if y && (y.include?('AM') || y.include?('PM'))
+v = y.split('-')
 beta = {
-:start_time=> y[0],
-:end_time=> y[1]
+:start_time=> v[0],
+:end_time=> v[1]
 }
 alpha << beta
 else
@@ -44,8 +44,8 @@ y = nil
 end
 end
 
-
-["NO PARKING MIDNIGHT-6AM INCLUDING SUNDAY",
+alpha = []
+x = ["NO PARKING MIDNIGHT-6AM INCLUDING SUNDAY",
 "NO PARKING SUNDAY & HOLIDAYS (SINGLE ARROW)",
 "NO PARKING 1PM-MIDNIGHT SATURDAY (SINGLE ARROW)",
 "NO PARKING ANYTIME MAY 15 - SEPT 30",
@@ -55,4 +55,11 @@ end
 "NO PARKING SAT SUN HOILDAYS MAY 15 - SEPT 30",
 "NO PARKING 7-10AM 4-7PM MON THRU FRI",
 "NO PARKING 8AM-6PM MON THRU FRI EXCEPT STATE OWNED VEHICLES",
-"NO PARKING 7-9AM 4-7PM EXCEPT SUNDAY"]
+"NO PARKING 7-9AM 4-7PM EXCEPT SUNDAY",
+"NO PARKING (SANITATION BROOM SYMBOL) 9-10:30AM MON & THURS" ]
+
+Curb Line
+Property Line
+Building Line
+
+[/((?:EXCEPT\s)|(?:INCLUDING\s))?((?:MONDAY|\bMON\b)|(?:TUESDAY|\bTUE\b)|(?:WEDNESDAY|\bWED\b)|(?:THURSDAY|\bTHURS\b)|(?:FRIDAY|\bFRI\b)|(?:SATURDAY|\bSAT\b)|(?:SUNDAY|\bSUN\b)|(?:THRU))\s?((?:MONDAY|\bMON\b)|(?:TUESDAY|\bTUE\b)|(?:WEDNESDAY|\bWED\b)|(?:THURSDAY|\bTHURS\b)|(?:FRIDAY|\bFRI\b)|(?:SATURDAY|\bSAT\b)|(?:SUNDAY|\bSUN\b)|(?:THRU))?\s?((?:MONDAY|\bMON\b)|(?:TUESDAY|\bTUE\b)|(?:WEDNESDAY|\bWED\b)|(?:THURSDAY|\bTHURS\b)|(?:FRIDAY|\bFRI\b)|(?:SATURDAY|\bSAT\b)|(?:SUNDAY|\bSUN\b)|(?:THRU))?/]
