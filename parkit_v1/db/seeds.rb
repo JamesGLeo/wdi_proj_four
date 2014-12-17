@@ -26,11 +26,17 @@ data_hash.each do |sign|
     arrowpoints: sign["arrowpoints"],
     longitude: sign["longitude"],
     latitude: sign["latitude"],
-    signdescription: sign["signdescription"]
+    signdescription: sign["signdescription"],
+    sunday: rule_hash[:SUNDAY],
+    monday: rule_hash[:MONDAY],
+    tuesday: rule_hash[:TUESDAY],
+    wednesday: rule_hash[:WEDNESDAY],
+    thursday: rule_hash[:THURSDAY],
+    friday: rule_hash[:FRIDAY],
+    saturday: rule_hash[:SATURDAY]
   }
-  primary_hash.merge!(rule_hash)
-
   data << primary_hash
 end
 
 Parkingspot.create(data)
+

@@ -9,13 +9,13 @@ class CreateParkingspots < ActiveRecord::Migration
       t.float :longitude
       t.float :latitude
       t.string :signdescription
-      t.string :SUNDAY, array: true, default: []
-      t.string :MONDAY, array: true, default: []
-      t.string :TUESDAY, array: true, default: []
-      t.string :WEDNESDAY, array: true, default: []
-      t.string :THURSDAY, array: true, default: []
-      t.string :FRIDAY, array: true, default: []
-      t.string :SATURDAY, array: true, default: []
+      t.string :sunday, array: true, default: []
+      t.string :monday, array: true, default: []
+      t.string :tuesday, array: true, default: []
+      t.string :wednesday, array: true, default: []
+      t.string :thursday, array: true, default: []
+      t.string :friday, array: true, default: []
+      t.string :saturday, array: true, default: []
       t.timestamps
     end
   end

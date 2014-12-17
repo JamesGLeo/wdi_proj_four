@@ -25,13 +25,13 @@ ActiveRecord::Schema.define(version: 20141215170932) do
     t.float    "longitude"
     t.float    "latitude"
     t.string   "signdescription"
-    t.string   "SUNDAY",            default: [], array: true
-    t.string   "MONDAY",            default: [], array: true
-    t.string   "TUESDAY",           default: [], array: true
-    t.string   "WEDNESDAY",         default: [], array: true
-    t.string   "THURSDAY",          default: [], array: true
-    t.string   "FRIDAY",            default: [], array: true
-    t.string   "SATURDAY",          default: [], array: true
+    t.string   "sunday",            default: [], array: true
+    t.string   "monday",            default: [], array: true
+    t.string   "tuesday",           default: [], array: true
+    t.string   "wednesday",         default: [], array: true
+    t.string   "thursday",          default: [], array: true
+    t.string   "friday",            default: [], array: true
+    t.string   "saturday",          default: [], array: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
