@@ -15,15 +15,22 @@ csv_data = File.read('db/parkinglocation.csv')
 csv = CSV.parse(csv_data, :headers => true)
 
 csv.each do |row|
+
+
+	distance = row[3]
+	distance.gsub)
+
 x = {
 		:boroughcode => row[0],
 		:statusordernumber_id => row[1],
 		:signsequence => row[2],
-		:distance => row[3],
+		:distance => distance,
 		:arrowpoints => row[4],
 		:signdescription => row[5]
 	}
-data << x 
+
+	\file.write(x.to_json)
+
 end
 
 Parkingspot.create(data)
