@@ -40,7 +40,7 @@
   var time;
   var browserViewCoord;
 
-  var jsonData = "test_data.geojson";
+  var jsonData;
 
 
 // Map
@@ -55,22 +55,29 @@
                     .addTo(map);
           });
 
-// Signs
+
+// Signs layer
   var featureLayer = L.mapbox.featureLayer()
                              .loadURL(jsonData)
                              .on('ready', setMarkers)
                              .addTo(map);
 
-  function setMarkers(layer) {
-      this.eachLayer(function(marker) {
-          if (marker.toGeoJSON()) {
-              marker.setIcon(L.mapbox.marker.icon({
-                  'marker-color': '#ff8888',
-                  'marker-size': 'small'
-              }));
-          }
-      });
-  }
+  // function setMarkers(layer) {
+  //     this.eachLayer(function(marker) {
+  //         if (marker.toGeoJSON()) {
+  //             marker.setIcon(L.mapbox.marker.icon({
+  //                 'marker-color': '#ff8888',
+  //                 'marker-size': 'small'
+  //             }));
+  //         }
+  //     });
+  // }
+
+// Set the Map
+  map.on("load", renderMarkers);
+  map.on("viewreset", renderMarkers);
+  map.on("move", renderMarkers);
+  map.on("resize", renderMarkers);
 
 
 // User's marker layer
@@ -108,6 +115,24 @@
       geolocate.innerHTML = 'Position could not be found';
   });
 
+
+////////////////////////////////////////////////////////////
+//                      FUNCTIONS                         //
+////////////////////////////////////////////////////////////
+
+// Render the signs
+  function setMarkers(layer) {
+      this.eachLayer(function(marker) {
+          if (marker.toGeoJSON()) {
+              marker.setIcon(L.mapbox.marker.icon({
+                  'marker-color': '#ff8888',
+                  'marker-size': 'small'
+              }));
+          }
+      });
+  }
+
+// Get the client's day, time and map bounds
   var clientInfo = function() {
     var now = new Date();
     // Day
@@ -125,11 +150,9 @@
 
     // TIME
     rawTime = [ now.getHours(), now.getMinutes() ];
-
     var suffix = ( rawTime[0] < 12 ) ? "AM" : "PM";
 
     rawTime[0] = ( rawTime[0] < 12 ) ? rawTime[0] : rawTime[0] - 12;
-
     rawTime[0] = rawTime[0] || 12;
 
     for ( var i = 1; i < 3; i++ ) {
@@ -149,55 +172,13 @@
     ];
   };
 
-  // parkingMap(map, jsonData);
 
-
-
-//  var svg = d3.select(map.getPanes()
-//              .overlayPane)
-//              .append("svg"),
-//      g =  svg.append("g")
-//              .attr("class", "leaflet-zoom-hide");
-//
-//  jsonData = //whatever we're passing in
-//  d3.json(jsonData, function(collection) {
-//    var transform = d3.geo
-//                      .transform({point: projectPoint}),
-//             path = d3.geo
-//                      .path()
-//                      .projection(transform);
-//
-//    var feature = g.selectAll("path")
-//                   .data(collection.features)
-//                   .enter()
-//                   .append("path");
-//
-//    map.on("viewreset", reset);
-//
-//    reset();
-//
-//// Reposition the SVG to cover the features.
-//    function reset() {
-//      var bounds = path.bounds(collection),
-//          topLeft = bounds[0],
-//          bottomRight = bounds[1];
-//
-//      svg .attr("width", bottomRight[0] - topLeft[0])
-//          .attr("height", bottomRight[1] - topLeft[1])
-//          .style("left", topLeft[0] + "px")
-//          .style("top", topLeft[1] + "px");
-//
-//        g .attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")");
-//
-//      feature.attr("d", path);
-//    }
-//
-//// Use Leaflet to implement a D3 geometric transformation.
-//    function projectPoint(x, y) {
-//      var point = map.latLngToLayerPoint(new L.LatLng(y, x));
-//      this.stream.point(point.x, point.y);
-//    }
-//  });
+// Set the map
+  var renderMarkers = function() {
+    clientInfo();
+    var info = [ [day], [time], [browserViewCoord] ];
+    $.post("URL",info); 
+  };
 
 </script>
 
