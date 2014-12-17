@@ -66,6 +66,9 @@ _                                 ____ _
 
 ---
 
-##Collaboration 
-You have the option of working alone or with a group of your choosing.  If your groups will be larger than two people, please consult us before moving forward.
+##THE PARKING APP
+
+This application is meant to help drivers with the trials and tribulations which inevitably rise when one tries to park his/her vehicle in New York City (i.e. bi-weekly street sweeping, no standing, etc.) 
+
+The app pulls in parking regulation data and renders them to a map according to the day of the week and the current time so drivers know if the street they are parked on currently allows parking.
 
