@@ -61,52 +61,52 @@
                              .on('ready', setMarkers)
                              .addTo(map);
 
-    function setMarkers(layer) {
-        this.eachLayer(function(marker) {
-            if (marker.toGeoJSON()) {
-                marker.setIcon(L.mapbox.marker.icon({
-                    'marker-color': '#ff8888',
-                    'marker-size': 'small'
-                }));
-            }
-        });
-    }
+  function setMarkers(layer) {
+      this.eachLayer(function(marker) {
+          if (marker.toGeoJSON()) {
+              marker.setIcon(L.mapbox.marker.icon({
+                  'marker-color': '#ff8888',
+                  'marker-size': 'small'
+              }));
+          }
+      });
+  }
 
 
-    // User's marker
-    var userLayer = L.mapbox.featureLayer().addTo(map);
+// User's marker layer
+  var userLayer = L.mapbox.featureLayer().addTo(map);
 
-    if (!navigator.geolocation) {
-        geolocate.innerHTML = 'Geolocation is not available';
-    } else {
-        geolocate.onclick = function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            map.locate();
-        };
-    }
+  if (!navigator.geolocation) {
+      geolocate.innerHTML = 'Geolocation is not available';
+  } else {
+      geolocate.onclick = function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          map.locate();
+      };
+  }
 
-    map.on('locationfound', function(e) {
-        map.fitBounds(e.bounds);
+  map.on('locationfound', function(e) {
+      map.fitBounds(e.bounds);
 
-        userLayer.setGeoJSON({
-            type: 'Feature',
-            geometry: {
-                type: 'Point',
-                coordinates: [e.latlng.lng, e.latlng.lat]
-            },
-            properties: {
-                'title': 'User Located',
-                'marker-color': '#51a3c9',
-                'marker-size': 'large',
-                'marker-symbol': 'car'
-            }
-        });
-    });
+      userLayer.setGeoJSON({
+          type: 'Feature',
+          geometry: {
+              type: 'Point',
+              coordinates: [e.latlng.lng, e.latlng.lat]
+          },
+          properties: {
+              'title': 'User Located',
+              'marker-color': '#51a3c9',
+              'marker-size': 'large',
+              'marker-symbol': 'car'
+          }
+      });
+  });
 
-    map.on('locationerror', function() {
-        geolocate.innerHTML = 'Position could not be found';
-    });
+  map.on('locationerror', function() {
+      geolocate.innerHTML = 'Position could not be found';
+  });
 
   var clientInfo = function() {
     var now = new Date();
@@ -140,6 +140,13 @@
 
     time = rawTime.join(":") + " " + suffix;
 
+    var browserViewCoordNE = map.getBounds()._southWest;
+    var browserViewCoordSW = map.getBounds()._northEast;
+
+    browserViewCoord = [
+      [browserViewCoordNE.lat, browserViewCoordNE.lng], 
+      [browserViewCoordSW.lat, browserViewCoordSW.lng]
+    ];
   };
 
   // parkingMap(map, jsonData);
