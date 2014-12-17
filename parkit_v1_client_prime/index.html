@@ -35,10 +35,19 @@
 <a href='#' id='geolocate' class='ui-button'><strong>+</strong></a>
 
 <script>
+// API Information
+  var day;
+  var time;
+  var browserView;
 
-  // Map created with Mapbox
+  var jsonData = "test_data.geojson";
+
+
+// Map
   L.mapbox.accessToken = 'pk.eyJ1IjoiamFtZXNsaXVtYXBzIiwiYSI6InhLTDh6eUEifQ.mpBGKMabJ51bqz0kktgoEA';
+
   var geolocate = document.getElementById('geolocate');
+
   var map = L.mapbox.map('map', 'jamesliumaps.kfii0fpm')
           .on('ready', function() {
             // Minimap
@@ -46,73 +55,96 @@
                     .addTo(map);
           });
 
-  var jsonData = "test_data.geojson"
 
+// Signs
   var featureLayer = L.mapbox.featureLayer()
-    .loadURL(jsonData)
-    .on('ready', function(layer) {
-        // An example of customizing marker styles based on an attribute.
-        // In this case, the data, a CSV file, has a column called 'state'
-        // with values referring to states. Your data might have different
-        // values, so adjust to fit.
+                             .loadURL(jsonData)
+                             .on('ready', setMarkers)
+                             .addTo(map);
+
+    function setMarkers(layer) {
         this.eachLayer(function(marker) {
             if (marker.toGeoJSON()) {
-                // The argument to L.mapbox.marker.icon is based on the
-                // simplestyle-spec: see that specification for a full
-                // description of options.
                 marker.setIcon(L.mapbox.marker.icon({
                     'marker-color': '#ff8888',
-                    'marker-size': 'small',
-                    'iconUrl': '../images/red.png'
+                    'marker-size': 'small'
                 }));
-            } 
+            }
         });
-    })
-    .addTo(map);
+    }
 
+//window.setTimeout(function(){
+//    featureLayer.loadURL(jsonData)
+//});
 
-var userLayer = L.mapbox.featureLayer().addTo(map);
+    // User's marker
+    var userLayer = L.mapbox.featureLayer().addTo(map);
 
-// This uses the HTML5 geolocation API, which is available on
-// most mobile browsers and modern browsers, but not in Internet Explorer
-//
-// See this chart of compatibility for details:
-// http://caniuse.com/#feat=geolocation
-if (!navigator.geolocation) {
-    geolocate.innerHTML = 'Geolocation is not available';
-} else {
-    geolocate.onclick = function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        map.locate();
-    };
-}
+    if (!navigator.geolocation) {
+        geolocate.innerHTML = 'Geolocation is not available';
+    } else {
+        geolocate.onclick = function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            map.locate();
+        };
+    }
 
-// Once we've got a position, zoom and center the map
-// on it, and add a single marker.
-map.on('locationfound', function(e) {
-    map.fitBounds(e.bounds);
+    map.on('locationfound', function(e) {
+        map.fitBounds(e.bounds);
 
-    userLayer.setGeoJSON({
-        type: 'Feature',
-        geometry: {
-            type: 'Point',
-            coordinates: [e.latlng.lng, e.latlng.lat]
-        },
-        properties: {
-            'title': 'User Located',
-            'marker-color': '#51a3c9',
-            'marker-size': 'large',
-            'marker-symbol': 'car'
-        }
+        userLayer.setGeoJSON({
+            type: 'Feature',
+            geometry: {
+                type: 'Point',
+                coordinates: [e.latlng.lng, e.latlng.lat]
+            },
+            properties: {
+                'title': 'User Located',
+                'marker-color': '#51a3c9',
+                'marker-size': 'large',
+                'marker-symbol': 'car'
+            }
+        });
     });
-});
 
-// If the user chooses not to allow their location
-// to be shared, display an error message.
-map.on('locationerror', function() {
-    geolocate.innerHTML = 'Position could not be found';
-});
+    map.on('locationerror', function() {
+        geolocate.innerHTML = 'Position could not be found';
+    });
+
+  var clientInfo = function() {
+    var now = new Date();
+    // Day
+    var weekday = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+    ];
+
+    day = weekday[now.getDay()];
+
+    // TIME
+    rawTime = [ now.getHours(), now.getMinutes() ];
+
+    var suffix = ( rawTime[0] < 12 ) ? "AM" : "PM";
+
+    rawTime[0] = ( rawTime[0] < 12 ) ? rawTime[0] : rawTime[0] - 12;
+
+    rawTime[0] = rawTime[0] || 12;
+
+    for ( var i = 1; i < 3; i++ ) {
+        if ( rawTime[i] < 10 ) {
+            rawTime[i] = "0" + rawTime[i];
+        }
+    }
+
+    time = rawTime.join(":") + " " + suffix;
+
+  };
 
   // parkingMap(map, jsonData);
 

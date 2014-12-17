@@ -22,22 +22,23 @@ body {
 }
 
 .ui-button {
-  background:#3887BE;
-  color:#FFF;
-  display:block;
-  position:absolute;
-  bottom:25%;
-  right:0.5%;
-  width:130px;
-  margin:-20px 0 0 -80px;
-  z-index:100;
-  text-align:center;
-  padding:10px;
-  border:1px solid rgba(0,0,0,0.4);
-  border-radius:3px;
-  font-size: 38;
+    background: #3887BE;
+    color: #FFF;
+    display: block;
+    position: absolute;
+    bottom: 12em;
+    right: 3.5em;
+    margin: -50px 0 0 -50px;
+    z-index: 100;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    text-decoration: none;
   }
   .ui-button:hover {
     background:#3074a4;
     color:#fff;
-  }
+}
