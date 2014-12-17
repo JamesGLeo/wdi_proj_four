@@ -22,6 +22,7 @@ body {
 }
 
 .ui-button {
+    background-image: url("../images/mylocation.svg");
     background: #3887BE;
     color: #FFF;
     display: block;

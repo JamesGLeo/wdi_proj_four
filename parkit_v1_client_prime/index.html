@@ -32,13 +32,13 @@
 
 <div id='loading'></div>
 
-<a href='#' id='geolocate' class='ui-button'><strong>+</strong></a>
+<a href='#' id='geolocate' class='ui-button'></a>
 
 <script>
 // API Information
   var day;
   var time;
-  var browserView;
+  var browserViewCoord;
 
   var jsonData = "test_data.geojson";
 
@@ -54,7 +54,6 @@
             new L.Control.MiniMap(L.mapbox.tileLayer('jamesliumaps.kfii0fpm'))
                     .addTo(map);
           });
-
 
 // Signs
   var featureLayer = L.mapbox.featureLayer()
@@ -73,9 +72,6 @@
         });
     }
 
-//window.setTimeout(function(){
-//    featureLayer.loadURL(jsonData)
-//});
 
     // User's marker
     var userLayer = L.mapbox.featureLayer().addTo(map);
