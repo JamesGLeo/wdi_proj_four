@@ -74,7 +74,11 @@ class ScheduleParser
    elsif dates.include?("THRU")
      begin_day_index = DAYS_OF_WEEK.index(dates[0])
      end_day_index = DAYS_OF_WEEK.index(dates[-1])
+     if begin_day_index == nil || end_day_index == nil
+       binding.pry
+     else
      range = (begin_day_index..end_day_index).to_a
+     end
      modified_dates = []
      range.each {|number| modified_dates << DAYS_OF_WEEK[number]}
      HASH.update(HASH){|k,v| modified_dates.include?(k.to_s) ? v=times : v=nil }

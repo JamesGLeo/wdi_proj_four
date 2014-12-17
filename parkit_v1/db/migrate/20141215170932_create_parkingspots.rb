@@ -6,6 +6,8 @@ class CreateParkingspots < ActiveRecord::Migration
       t.integer :signsequence
       t.integer :distance
       t.string :arrowpoints
+      t.float :longitude
+      t.float :latitude
       t.string :signdescription
       t.string :SUNDAY, array: true, default: []
       t.string :MONDAY, array: true, default: []
@@ -18,3 +20,4 @@ class CreateParkingspots < ActiveRecord::Migration
     end
   end
 end
+

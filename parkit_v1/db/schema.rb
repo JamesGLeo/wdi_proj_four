@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 20141215170932) do
     t.integer  "signsequence"
     t.integer  "distance"
     t.string   "arrowpoints"
+    t.float    "longitude"
+    t.float    "latitude"
     t.string   "signdescription"
     t.string   "SUNDAY",            default: [], array: true
     t.string   "MONDAY",            default: [], array: true

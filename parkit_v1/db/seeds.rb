@@ -6,28 +6,28 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-require 'CSV'
 
 data = []
 
 
-csv_data = File.read('db/parkingtest.csv')
+file = File.read('testdb.json')
 
-csv = CSV.parse(csv_data, :headers => true)
+data_hash = JSON.parse(file)
 
-csv.each do |record|
+data_hash.each do |sign|
   @parser = ScheduleParser.new
-  string_to_parse = record[5]
+  string_to_parse = sign["signdescription"]
   rule_hash = @parser.call(string_to_parse)
   primary_hash = {
-    boroughcode: record[0],
-    statusordernumber: (record[1].strip),
-    signsequence: record[2],
-    distance: record[3],
-    arrowpoints: record[4],
-    signdescription: record[5]
+    boroughcode: sign["boroughcode"],
+    statusordernumber: sign["statusordernumber"],
+    signsequence: sign["signsequence"],
+    distance: sign["distance"],
+    arrowpoints: sign["arrowpoints"],
+    longitude: sign["longitude"],
+    latitude: sign["latitude"],
+    signdescription: sign["signdescription"]
   }
-
   primary_hash.merge!(rule_hash)
 
   data << primary_hash

@@ -329,5 +329,4 @@ class ScheduleParserTest < ActiveSupport::TestCase
     assert_equal expected, actual
   end
 
-
 end

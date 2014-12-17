@@ -12,6 +12,12 @@ gem 'pg'
 
 gem 'pry'
 
+gem 'json'
+
+gem 'chronic'
+
+gem 'geokit-rails'
+
 
 
 # To use ActiveModel has_secure_password
