@@ -111,7 +111,8 @@
     console.log('The map is changing omg!')
 
     $.ajax({
-        url:"107.170.65.191/spots/api_nr",
+        url:"http://107.170.65.191:80/spots/api_nr",
+        // url:"http://localhost:300/spots/api_nr"
         method:"GET",
         dataType: 'JSON',
         data: {
@@ -120,7 +121,6 @@
             location: browserViewCoord
         },
         success: function(data) {
-     debugger;
             console.dir(data);
             // setMarkers(data);
         }
