@@ -99,7 +99,6 @@
 
     map.on("load", sendInfo);
     map.on("viewreset", sendInfo);
-    map.on("move", sendInfo);
     map.on("resize", sendInfo);
   });
 
@@ -109,9 +108,10 @@
 
   function sendInfo() {
     clientInfo();
+    console.log('The map is changing omg!')
 
     $.ajax({
-        url:"",
+        url:"107.170.65.191/spots/api_nr",
         method:"GET",
         dataType: 'JSON',
         data: {
@@ -120,7 +120,9 @@
             location: browserViewCoord
         },
         success: function(data) {
-            setMarkers(data);
+     debugger;
+            console.dir(data);
+            // setMarkers(data);
         }
     })
   };
@@ -203,7 +205,8 @@
     $.each(data, function(idx, sign){
         var marker = new L.CircleMarker(
                 [sign.latitude, sign.longitude],
-                { color: '#51a3c9' })
+                { color: '#51a3c9', radius: 1 }
+        )
         .addTo(map);
         markers.push(marker);
     });
