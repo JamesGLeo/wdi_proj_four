@@ -111,18 +111,20 @@
     console.log('The map is changing omg!')
 
     $.ajax({
-        url:"http://107.170.65.191:80/spots/api_nr",
-        // url:"http://localhost:300/spots/api_nr"
+        // url:"http://107.170.65.191:80/spots/api_nr",
+        url:"http://localhost:3000/spots/api_nr",
         method:"GET",
         dataType: 'JSON',
         data: {
             day: day,
             time: time,
-            location: browserViewCoord
+            // location: browserViewCoord
+            latitude: browserViewCoord[0],
+            longitude: browserViewCoord[1]
         },
         success: function(data) {
             console.dir(data);
-            // setMarkers(data);
+            setMarkers(data);
         }
     })
   };
