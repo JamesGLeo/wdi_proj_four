@@ -101,7 +101,7 @@
 //                      FUNCTIONS                       //
 //////////////////////////////////////////////////////////
 
-  var sendInfo = function() {
+  function sendInfo() {
     clientInfo();
 
     $.ajax({
@@ -121,7 +121,7 @@
   };
 
 // Get client's day, time, and location to the server
-  var clientInfo = function() {
+  function clientInfo() {
     var now = new Date();
 
     // Day
