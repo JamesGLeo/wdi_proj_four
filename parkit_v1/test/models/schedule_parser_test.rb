@@ -331,13 +331,13 @@ class ScheduleParserTest < ActiveSupport::TestCase
 
   def test_td_tues_and_friday
     input = "NO PARKING (SANITATION BROOM SYMBOL) 11:30AM TO 1PM TUES & FRI W/SINGLE ARROW"
-    expected ={
+    expected = {
       :SUNDAY =>  nil,
       :MONDAY =>  nil,
       :TUESDAY => [["11:30AM", "1PM"]],
       :WEDNESDAY => nil,
       :THURSDAY => nil,
-      :FRIDAY => [["11:30AM", "1PM"],
+      :FRIDAY => [["11:30AM", "1PM"]],
       :SATURDAY => nil
     }
     actual = @parser.call(input)
