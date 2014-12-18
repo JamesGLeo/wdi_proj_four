@@ -7,7 +7,11 @@
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="/css/styles.css">
+<<<<<<< HEAD
+  
+=======
 
+>>>>>>> 1f9ded2dc68432564e18afd7f1a723f36e7172af
   <!--MapBox-->
   <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
@@ -48,7 +52,11 @@
   L.mapbox.accessToken = 'pk.eyJ1IjoiamFtZXNsaXVtYXBzIiwiYSI6InhLTDh6eUEifQ.mpBGKMabJ51bqz0kktgoEA';
 
   var map = L.mapbox.map('map', 'jamesliumaps.kfii0fpm')
+<<<<<<< HEAD
+                    .on('load', setAPI)
+=======
                     // .on('load', setAPI)
+>>>>>>> 1f9ded2dc68432564e18afd7f1a723f36e7172af
                     .on('ready', function() {
                     // Minimap
                       new L.Control.MiniMap(L.mapbox.tileLayer('jamesliumaps.kfii0fpm'))
@@ -162,6 +170,14 @@
     time = rawTime.join(":") + " " + suffix;
 
     //Coords
+<<<<<<< HEAD
+    var browserViewCoordNE = map.getBounds()._southWest;
+    var browserViewCoordSW = map.getBounds()._northEast;
+
+    browserViewCoord = [
+      [browserViewCoordNE.lat, browserViewCoordNE.lng], 
+      [browserViewCoordSW.lat, browserViewCoordSW.lng]
+=======
 //    var browserViewCoordNE = map.getBounds()._southWest;
 //    var browserViewCoordSW = map.getBounds()._northEast;
 
@@ -169,11 +185,23 @@
         map.getCenter().lat, map.getCenter().lng
 //      [browserViewCoordNE.lat, browserViewCoordNE.lng],
 //      [browserViewCoordSW.lat, browserViewCoordSW.lng]
+>>>>>>> 1f9ded2dc68432564e18afd7f1a723f36e7172af
     ];
   };
 
 
 // Send info to the server
+<<<<<<< HEAD
+  var setAPI = function() {
+    clientInfo();
+    $.ajax({
+      url:,
+      method: "GET",
+      data: [ [day],[time],[browserViewCoord] ],
+      success: 
+    });
+  };
+=======
   // var setAPI = function() {
   //   clientInfo();
   //   $.ajax({
@@ -183,6 +211,7 @@
   //     success:
   //   });
   // };
+>>>>>>> 1f9ded2dc68432564e18afd7f1a723f36e7172af
 
 
 
@@ -241,4 +270,8 @@
 </script>
 
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 1f9ded2dc68432564e18afd7f1a723f36e7172af
