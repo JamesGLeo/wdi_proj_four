@@ -7,7 +7,7 @@
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="/css/styles.css">
-  
+
   <!--MapBox-->
   <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
@@ -42,37 +42,18 @@
   var time;
   var browserViewCoord;
 
-  var jsonData = "test_data.geojson";
-
 // Map
   L.mapbox.accessToken = 'pk.eyJ1IjoiamFtZXNsaXVtYXBzIiwiYSI6InhLTDh6eUEifQ.mpBGKMabJ51bqz0kktgoEA';
 
-  var map = L.mapbox.map('map', 'jamesliumaps.kfii0fpm')
-                    // .on('load', setAPI)
-                    .on('ready', function() {
-                    // Minimap
-                      new L.Control.MiniMap(L.mapbox.tileLayer('jamesliumaps.kfii0fpm'))
-                      .addTo(map);
-                    });
-
+  var map;
 
 // Signs
-  var featureLayer = L.mapbox.featureLayer()
-                             .loadURL(jsonData)
-                             .on('ready', setMarkers)
-                             .addTo(map);
+  var markers = [];
+
+//  setTimeout(sendInfo, 3000);
 
 
-//  setTimeout(setAPI, 3000);
 
-// // User screen movements
-//   map.on("viewreset", setAPI);
-//   map.on("move", setAPI);
-//   map.on("resize", setAPI);
-
-
-// User's marker layer
-  var userLayer = L.mapbox.featureLayer().addTo(map);
 
 // Geolocate user
   var geolocate = document.getElementById('geolocate');
@@ -87,10 +68,11 @@
       };
   }
 
-  map.on('locationfound', function(e) {
+  $(function() {
+    map.on('locationfound', function(e) {
       map.fitBounds(e.bounds);
 
-      userLayer.setGeoJSON({
+      map.setGeoJSON({
           type: 'Feature',
           geometry: {
               type: 'Point',
@@ -103,31 +85,42 @@
               'marker-symbol': 'car'
           }
       });
-  });
+    });
 
-  map.on('locationerror', function() {
+    map.on('locationerror', function() {
       geolocate.innerHTML = 'Position could not be found';
-  });
+    });
 
+    map.on("load", sendInfo);
+    map.on("viewreset", sendInfo);
+    map.on("move", sendInfo);
+    map.on("resize", sendInfo);
+  });
 
 //////////////////////////////////////////////////////////
 //                      FUNCTIONS                       //
 //////////////////////////////////////////////////////////
 
-// Render signs to map
-  function setMarkers(layer) {
-        this.eachLayer(function(marker) {
-            if (marker.toGeoJSON()) {
-                marker.setIcon(L.mapbox.marker.icon({
-                    'marker-color': '#ff8888',
-                    'marker-size': 'small'
-                }));
-            }
-        });
-    }
+  var sendInfo = function() {
+    clientInfo();
 
+    $.ajax({
+        url:"",
+        method:"GET",
+        dataType: 'JSON',
+        data: {
+            day: day,
+            time: time,
+            location: browserViewCoord
+        },
+        success: function() {
+            drawMap();
+            getData();
+        }
+    })
+  };
 
-// Set client's day, time, and location
+// Get client's day, time, and location to the server
   var clientInfo = function() {
     var now = new Date();
 
@@ -162,80 +155,62 @@
     time = rawTime.join(":") + " " + suffix;
 
     //Coords
-    var browserViewCoordNE = map.getBounds()._southWest;
-    var browserViewCoordSW = map.getBounds()._northEast;
+//    var browserViewCoordNE = map.getBounds()._southWest;
+//    var browserViewCoordSW = map.getBounds()._northEast;
 
     browserViewCoord = [
-      [browserViewCoordNE.lat, browserViewCoordNE.lng], 
-      [browserViewCoordSW.lat, browserViewCoordSW.lng]
+        map.getCenter().lat, map.getCenter().lng
+//      [browserViewCoordNE.lat, browserViewCoordNE.lng],
+//      [browserViewCoordSW.lat, browserViewCoordSW.lng]
     ];
   };
 
+// Create a map
+  function drawMap() {
+    map = L.mapbox.map('map', 'jamesliumaps.kfii0fpm')
+            .on('ready', function () {
+                // Minimap
+                new L.Control.MiniMap(L.mapbox.tileLayer('jamesliumaps.kfii0fpm'))
+                        .addTo(map);
+            });
+  }
 
-// Send info to the server
-  // var setAPI = function() {
-  //   clientInfo();
-  //   $.ajax({
-  //     url:,
-  //     method: "GET",
-  //     data: [ [day],[time],[browserViewCoord] ],
-  //     success: 
-  //   });
-  // };
+// Get data to render
+  function getData(){
+    $.ajax({
+        url:"",
+        method: "GET",
+        dataType:"JSON",
+        data: {
+            latitude: latitude,
+            longitude: longitude,
+            regulation: regulation
+        },
+        success: function(data) {
+            setMarkers(data);
+        }
+    });
+  }
 
+// Render signs to map
+  function setMarkers(data){
+    resetMap();
+    $.each(data, function(idx, sign){
+        var marker = new L.CircleMarker(
+                [sign.latitude, sign.longitude],
+                { color: '#51a3c9' })
+        .addTo(map);
+        markers.push(marker);
+    });
+  }
 
-
-
-
-  // parkingMap(map, jsonData);
-
-
-
-//  var svg = d3.select(map.getPanes()
-//              .overlayPane)
-//              .append("svg"),
-//      g =  svg.append("g")
-//              .attr("class", "leaflet-zoom-hide");
-//
-//  jsonData = //whatever we're passing in
-//  d3.json(jsonData, function(collection) {
-//    var transform = d3.geo
-//                      .transform({point: projectPoint}),
-//             path = d3.geo
-//                      .path()
-//                      .projection(transform);
-//
-//    var feature = g.selectAll("path")
-//                   .data(collection.features)
-//                   .enter()
-//                   .append("path");
-//
-//    map.on("viewreset", reset);
-//
-//    reset();
-//
-//// Reposition the SVG to cover the features.
-//    function reset() {
-//      var bounds = path.bounds(collection),
-//          topLeft = bounds[0],
-//          bottomRight = bounds[1];
-//
-//      svg .attr("width", bottomRight[0] - topLeft[0])
-//          .attr("height", bottomRight[1] - topLeft[1])
-//          .style("left", topLeft[0] + "px")
-//          .style("top", topLeft[1] + "px");
-//
-//        g .attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")");
-//
-//      feature.attr("d", path);
-//    }
-//
-//// Use Leaflet to implement a D3 geometric transformation.
-//    function projectPoint(x, y) {
-//      var point = map.latLngToLayerPoint(new L.LatLng(y, x));
-//      this.stream.point(point.x, point.y);
-//    }
-//  });
+// Reset the map
+  function resetMap(){
+    $(markers).each(function(idx, marker){
+        map.removeLayer(marker);
+    });
+    markers = [];
+  }
 
 </script>
 

@@ -67,7 +67,7 @@ class Parkingspot < ActiveRecord::Base
     spots_closeby.each do |spot|
       spot["#{day}"].each do |range|
         start_time = Chronic.parse(range[0]).to_i
-        end_time = Chronic.parse(range[-1]).to_i
+        end_time = Chronic.parse(range[-1]).to_i - 2500
         range = start_time..end_time
         if range.include?(current_time)
           x = {
