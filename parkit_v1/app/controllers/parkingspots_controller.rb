@@ -1,12 +1,19 @@
 class ParkingspotsController < ApplicationController
 
   def api1
-    parkingspots = Parkingspot.closeby_no_rules(40.7400447,-73.9896498, 1, "MONDAY")
+    latitude = params[:latitude]
+    longitude = params[:longitude]
+    day = params[:day]
+    parkingspots = Parkingspot.closeby_no_rules(latitude,longitude, 1, day)
     render json: parkingspots
   end
 
   def api2
-    parkingspots = Parkingspot.closeby_with_rules(40.7400447,-73.9896498, 1, "MONDAY", "5PM")
+    latitude = params[:latitude]
+    longitude = params[:longitude]
+    day = params[:day]
+    time = params[:time]
+    parkingspots = Parkingspot.closeby_with_rules(latitude,longitude, 1, day, time)
     render json: parkingspots
   end
 

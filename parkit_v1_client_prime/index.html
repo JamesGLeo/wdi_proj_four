@@ -125,6 +125,18 @@
     })
   };
 
+ spots = {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [4, 2]
+        },
+        "properties": {
+        "sign": "hello"
+      }
+      }
+
+
 // Get client's day, time, and location to the server
   function clientInfo() {
     var now = new Date();
