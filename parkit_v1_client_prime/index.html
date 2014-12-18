@@ -42,10 +42,16 @@
   var time;
   var browserViewCoord;
 
+
 // Map
   L.mapbox.accessToken = 'pk.eyJ1IjoiamFtZXNsaXVtYXBzIiwiYSI6InhLTDh6eUEifQ.mpBGKMabJ51bqz0kktgoEA';
 
-  var map;
+  var map = L.mapbox.map('map', 'jamesliumaps.kfii0fpm')
+                    .on('ready', function() {
+                    // Minimap
+                      new L.Control.MiniMap(L.mapbox.tileLayer('jamesliumaps.kfii0fpm'))
+                      .addTo(map);
+                    });
 
 // Signs
   var markers = [];
@@ -113,9 +119,8 @@
             time: time,
             location: browserViewCoord
         },
-        success: function() {
-            drawMap();
-            getData();
+        success: function(data) {
+            setMarkers(data);
         }
     })
   };
