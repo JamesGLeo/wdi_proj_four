@@ -155,12 +155,13 @@
     time = rawTime.join(":") + " " + suffix;
 
     //Coords
-    var browserViewCoordNE = map.getBounds()._southWest;
-    var browserViewCoordSW = map.getBounds()._northEast;
+//    var browserViewCoordNE = map.getBounds()._southWest;
+//    var browserViewCoordSW = map.getBounds()._northEast;
 
     browserViewCoord = [
-      [browserViewCoordNE.lat, browserViewCoordNE.lng],
-      [browserViewCoordSW.lat, browserViewCoordSW.lng]
+        map.getCenter().lat, map.getCenter().lng
+//      [browserViewCoordNE.lat, browserViewCoordNE.lng],
+//      [browserViewCoordSW.lat, browserViewCoordSW.lng]
     ];
   };
 
@@ -195,9 +196,9 @@
   function setMarkers(data){
     resetMap();
     $.each(data, function(idx, sign){
-        var marker = new L.CircleMarker([sign.latitude, sign.longitude],{
-            color: '#51a3c9'
-        })
+        var marker = new L.CircleMarker(
+                [sign.latitude, sign.longitude],
+                { color: '#51a3c9' })
         .addTo(map);
         markers.push(marker);
     });

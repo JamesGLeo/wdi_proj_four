@@ -7,7 +7,7 @@
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="/css/styles.css">
-  
+
   <!--MapBox-->
   <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
@@ -162,12 +162,13 @@
     time = rawTime.join(":") + " " + suffix;
 
     //Coords
-    var browserViewCoordNE = map.getBounds()._southWest;
-    var browserViewCoordSW = map.getBounds()._northEast;
+//    var browserViewCoordNE = map.getBounds()._southWest;
+//    var browserViewCoordSW = map.getBounds()._northEast;
 
     browserViewCoord = [
-      [browserViewCoordNE.lat, browserViewCoordNE.lng], 
-      [browserViewCoordSW.lat, browserViewCoordSW.lng]
+        map.getCenter().lat, map.getCenter().lng
+//      [browserViewCoordNE.lat, browserViewCoordNE.lng],
+//      [browserViewCoordSW.lat, browserViewCoordSW.lng]
     ];
   };
 
@@ -179,7 +180,7 @@
   //     url:,
   //     method: "GET",
   //     data: [ [day],[time],[browserViewCoord] ],
-  //     success: 
+  //     success:
   //   });
   // };
 
