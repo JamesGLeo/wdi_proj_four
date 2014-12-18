@@ -18,6 +18,9 @@ gem 'chronic'
 
 gem 'geokit-rails'
 
+gem 'rack-cors', :require => 'rack/cors'
+
+
 
 
 # To use ActiveModel has_secure_password
