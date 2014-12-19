@@ -99,7 +99,7 @@
 
     map.on("load", sendInfo);
     map.on("viewreset", sendInfo);
-    map.on("resize", sendInfo);
+    // map.on("resize", sendInfo);
   });
 
 //////////////////////////////////////////////////////////
@@ -107,8 +107,8 @@
 //////////////////////////////////////////////////////////
 
   function sendInfo() {
+    resetMap();
     clientInfo();
-    console.log('The map is changing omg!')
 
     $.ajax({
         // url:"http://107.170.65.191:80/spots/api_nr",
@@ -118,27 +118,16 @@
         data: {
             day: day,
             time: time,
-            // location: browserViewCoord
             latitude: browserViewCoord[0],
             longitude: browserViewCoord[1]
         },
         success: function(data) {
             console.dir(data);
             setMarkers(data);
+            secondMarkers()
         }
     })
   };
-
- spots = {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [4, 2]
-        },
-        "properties": {
-        "sign": "hello"
-      }
-      }
 
 
 // Get client's day, time, and location to the server
@@ -181,45 +170,35 @@
 
     browserViewCoord = [
         map.getCenter().lat, map.getCenter().lng
-//      [browserViewCoordNE.lat, browserViewCoordNE.lng],
-//      [browserViewCoordSW.lat, browserViewCoordSW.lng]
     ];
   };
 
-// Create a map
-  // function drawMap() {
-  //   map = L.mapbox.map('map', 'jamesliumaps.kfii0fpm')
-  //           .on('ready', function () {
-  //               // Minimap
-  //               new L.Control.MiniMap(L.mapbox.tileLayer('jamesliumaps.kfii0fpm'))
-  //                       .addTo(map);
-  //           });
-  // }
+// Get second set of signs data
+  function secondMarkers() {
+    $.ajax({
+        url:"http://localhost:3000/spots/api_r",
+        method:"GET",
+        dataType: 'JSON',
+        data: {
+            day: day,
+            time: time,
+            latitude: browserViewCoord[0],
+            longitude: browserViewCoord[1]
+        },
+        success: function(data) {
+            console.dir(data);
+            setMarkers(data);
+        }
+    })
+  };
 
-// // Get data to render
-//   function getData(){
-//     $.ajax({
-//         url:"",
-//         method: "GET",
-//         dataType:"JSON",
-//         data: {
-//             latitude: latitude,
-//             longitude: longitude,
-//             regulation: regulation
-//         },
-//         success: function(data) {
-//             setMarkers(data);
-//         }
-//     });
-//   }
 
 // Render signs to map
   function setMarkers(data){
-    resetMap();
     $.each(data, function(idx, sign){
         var marker = new L.CircleMarker(
-                [sign.latitude, sign.longitude],
-                { color: '#51a3c9', radius: 1 }
+                [ sign.latitude, sign.longitude ],
+                { color: '#b2fb49', radius: 7 }
         )
         .addTo(map);
         markers.push(marker);
