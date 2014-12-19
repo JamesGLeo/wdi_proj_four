@@ -22,13 +22,13 @@ body {
 }
 
 .ui-button {
-    background-image: url("../images/mylocation.svg");
+    background-image: url("/images/park-sign.png");
     background: #3887BE;
     color: #FFF;
     display: block;
     position: absolute;
-    bottom: 12em;
-    right: 3.5em;
+    bottom: 10em;
+    right: 3em;
     margin: -50px 0 0 -50px;
     z-index: 100;
     text-align: center;

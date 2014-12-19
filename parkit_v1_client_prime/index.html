@@ -32,7 +32,7 @@
 
 <div id='loading'></div>
 
-<a href='#' id='geolocate' class='ui-button'></a>
+<a href='#' id='geolocate' class='ui-button'><strong>X</strong></a>
 
 
 <script>
@@ -42,6 +42,10 @@
   var time;
   var browserViewCoord;
 
+  var signIcons = L.icon({
+    iconUrl: '/images/park-sign.png',
+    iconSize: [70,70],
+  });
 
 // Map
   L.mapbox.accessToken = 'pk.eyJ1IjoiamFtZXNsaXVtYXBzIiwiYSI6InhLTDh6eUEifQ.mpBGKMabJ51bqz0kktgoEA';
@@ -165,9 +169,6 @@
     time = rawTime.join(":") + " " + suffix;
 
     //Coords
-//    var browserViewCoordNE = map.getBounds()._southWest;
-//    var browserViewCoordSW = map.getBounds()._northEast;
-
     browserViewCoord = [
         map.getCenter().lat, map.getCenter().lng
     ];
@@ -196,9 +197,9 @@
 // Render signs to map
   function setMarkers(data){
     $.each(data, function(idx, sign){
-        var marker = new L.CircleMarker(
+        var marker = new L.marker(
                 [ sign.latitude, sign.longitude ],
-                { color: '#b2fb49', radius: 7 }
+                { icon: signIcons }
         )
         .addTo(map);
         markers.push(marker);
